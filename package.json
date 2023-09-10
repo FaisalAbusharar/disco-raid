@@ -2,10 +2,10 @@
   "name": "discverifiy",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/bot.js",
+  "main": "./source/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/bot.js"
+    "start": "nodemon ./source/bot.js"
   },
   "keywords": [],
   "author": "",
