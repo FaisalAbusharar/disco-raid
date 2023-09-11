@@ -1,15 +1,16 @@
-const { REST, Routes } = require('discord.js');
+const { REST, Routes, ApplicationCommandOptionType } = require('discord.js');
 require('dotenv').config({path:'../.env'})
 
 const commands = [
     {
-        name: 'hey',
-        description: 'Replies with hey!',
+        name: 'online',
+        description: 'Checks if Disco-RAID is online.',
     },
     {
-        name: 'ping',
-        description: 'Pong!',
-    },
+      name: 'raid',
+      description: "deletes all channels."
+    }
+ 
 ];
 
 
