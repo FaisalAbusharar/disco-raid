@@ -66,10 +66,23 @@ client.on('interactionCreate', async (interaction) => {
         type: ChannelType.GuildText,
       });
 
-      for(let i = 0; i < spamAMTbyUser; i++) {
-        // Your code here
-        await newChannel.send(userMessage);
-    }
+
+      try{
+        
+        for (let i = 0; i < spamAMTbyUser; i++) {
+          // Duplicate the channel
+          const duplicateChannel = await guild.channels.create({
+            name: `RAID-${i+1}`,
+            type: ChannelType.GuildText,
+            parent: newChannel.parent, // Set the same parent as the original channel if applicable
+          });
+      
+          // Send message to duplicate channel
+          await duplicateChannel.send(userMessage);
+      }
+      } catch (error) {
+        console.error("Error creating duplicate channels:", error);
+      }
       
       
     } catch (error) {
