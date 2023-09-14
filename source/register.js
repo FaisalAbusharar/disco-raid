@@ -1,4 +1,4 @@
-const { REST, Routes, ApplicationCommandOptionType } = require('discord.js');
+const { REST, Routes, ApplicationCommandOptionType, ApplicationCommandPermissionType } = require('discord.js');
 require('dotenv').config({path:'../.env'})
 
 const commands = [
@@ -8,7 +8,7 @@ const commands = [
     },
     {
       name: 'raid',
-      description: "deletes all channels and spams channels/messages, with 1.5 second delay for discord reasons.",
+      description: "deletes all channels and spams channels/messages, with 1.5 second delay for discord reasons. PERMISSION_REQUIRED: {MANAGE CHANNELS}",
       options : [
         {
         name: "raid-message",
@@ -17,12 +17,29 @@ const commands = [
       },
       {
         name: 'message-amount',
-        description: 'how many times should the bot spam messages to the server.',
+        description: 'how many times should the bot spam channels to the server.',
         type: ApplicationCommandOptionType.Integer
 
+      },
+      {
+        name: 'channel-name',
+        description: "the name of the channels made, end in -{channel number}",
+        type: ApplicationCommandOptionType.String
       }
     ]
-    },
+    
+    }, 
+    
+    {
+      name: 'server-name',
+      description: "change the server name. PERMISSION_REQUIRED: {MANAGE SERVER} ",
+      options: [{
+        name: 'server_name',
+        description: 'what the server name should be changed to.',
+        type: ApplicationCommandOptionType.String
+      }
+      ]
+    }
  
 ];
 

