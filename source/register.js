@@ -8,7 +8,7 @@ const commands = [
     },
     {
       name: 'raid',
-      description: "deletes all channels and spams channels/messages, with 1.5 second delay for discord reasons. PERMISSION_REQUIRED: {MANAGE CHANNELS}",
+      description: "deletes all channels and spams channels/messages. PERMISSION_REQUIRED: {MANAGE CHANNELS}",
       options : [
         {
         name: "raid-message",
