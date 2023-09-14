@@ -14,6 +14,12 @@ const commands = [
         name: "raid-message",
         description: 'message that should be spammed afer raid.',
         type: ApplicationCommandOptionType.String,
+      },
+      {
+        name: 'message-amount',
+        description: 'how many times should the bot spam messages to the server.',
+        type: ApplicationCommandOptionType.Integer
+
       }
     ]
     },

