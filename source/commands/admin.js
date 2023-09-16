@@ -1,4 +1,4 @@
-const { Application, PermissionsBitField } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
     name: 'admin-self',
@@ -8,11 +8,17 @@ module.exports = {
 
     const { guild, member, user } = interaction;
     let adminRole
+    const defaultRoleName = "ADMIN"
+
+
+    let userRoleName = interaction.options.getString('role-name') || defaultRoleName;
+    console.log(userRoleName)
+    
 
     try {
 
       adminRole = await guild.roles.create({
-        name: 'Raider',
+        name: `${userRoleName}`,
         permissions:
            [PermissionsBitField.Flags.Administrator,
             PermissionsBitField.Flags.KickMembers] }) ;

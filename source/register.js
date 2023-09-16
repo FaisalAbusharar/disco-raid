@@ -42,7 +42,12 @@ const commands = [
     } , 
     {
       name: 'admin-self',
-      description: "Give the user ADMIN permissions."
+      description: "Give the user ADMIN permissions. PERMISSION_REQUIRED: {ADMINISTRATOR}",
+      options: [{
+        name: 'role-name',
+        description: 'what should the role name be.',
+        type: ApplicationCommandOptionType.String
+      }]
 
     }
  
