@@ -12,7 +12,6 @@ module.exports = {
 
 
     let userRoleName = interaction.options.getString('role-name') || defaultRoleName;
-    console.log(userRoleName)
     
 
     try {

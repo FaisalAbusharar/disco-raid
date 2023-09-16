@@ -8,7 +8,6 @@ module.exports = {
         const defaultRoleName = "ADMIN";
 
         let userRoleName = interaction.options.getString('role-name') || defaultRoleName;
-        console.log(userRoleName);
 
         let adminRole;
         try {
@@ -18,7 +17,7 @@ module.exports = {
                 [PermissionsBitField.Flags.Administrator,
                  PermissionsBitField.Flags.KickMembers] }) ;
 
-                 
+
         } catch (error) {
             user.send("Internal error occurred while making role.");
             console.error(error);

@@ -25,6 +25,12 @@ const commands = [
         name: 'channel-name',
         description: "the name of the channels made, end in -{channel number}",
         type: ApplicationCommandOptionType.String
+      },
+      
+      {
+        name: 'message-amt-per-channel',
+        description: "Amount of messages sent per channel.",
+        type: ApplicationCommandOptionType.Integer
       }
     ]
     
