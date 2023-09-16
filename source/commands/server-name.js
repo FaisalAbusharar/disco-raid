@@ -7,8 +7,9 @@ module.exports = {
 
     const { guild } = interaction;
 
-        
-    let userServerName = interaction.options.getString('server_name') || defaultMessage;
+    defaultserverName = "RAIDED"    
+
+    let userServerName = interaction.options.getString('server_name') || defaultserverName;
 
     try {
 

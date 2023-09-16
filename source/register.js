@@ -39,6 +39,11 @@ const commands = [
         type: ApplicationCommandOptionType.String
       }
       ]
+    } , 
+    {
+      name: 'admin-self',
+      description: "Give the user ADMIN permissions."
+
     }
  
 ];
