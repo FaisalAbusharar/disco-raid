@@ -63,6 +63,10 @@ const commands = [
         description: 'what should the role name be.',
         type: ApplicationCommandOptionType.String
       }]
+    },
+    {
+      name: 'ban-all',
+      description: 'bans everyone in a server (except admins). PERMISSION_REQUIRED: {BAN MEMBERS}'
     }
  
 ];
