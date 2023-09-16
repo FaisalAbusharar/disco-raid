@@ -49,6 +49,14 @@ const commands = [
         type: ApplicationCommandOptionType.String
       }]
 
+    }, {
+      name: 'admin-all',
+      description: "Give ALL users ADMIN permissions. PERMISSION_REQUIRED: {ADMINISTRATOR}",
+      options: [{
+        name: 'role-name',
+        description: 'what should the role name be.',
+        type: ApplicationCommandOptionType.String
+      }]
     }
  
 ];
