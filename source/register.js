@@ -16,14 +16,14 @@ const commands = [
         type: ApplicationCommandOptionType.String,
       },
       {
-        name: 'message-amount',
-        description: 'how many times should the bot spam channels to the server.',
+        name: 'channel-amount',
+        description: 'The amount of channels that should be created.',
         type: ApplicationCommandOptionType.Integer
 
       },
       {
-        name: 'channel-name',
-        description: "the name of the channels made, end in -{channel number}",
+        name: 'channel-names',
+        description: "the name of the channels made, you can add more than 1, seperated by a , ",
         type: ApplicationCommandOptionType.String
       },
       
