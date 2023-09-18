@@ -1,5 +1,6 @@
 const { Client, IntentsBitField } = require('discord.js');
 const fs = require('fs');
+const internal = require('stream');
 
 const client = new Client({ 
   intents: [
@@ -25,6 +26,8 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}! ✅`);
 });
+
+
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
