@@ -13,9 +13,9 @@ All messages between you & the bot are private. No messages will be sent to the 
   - `raid` command enables you to delete all channels and spam channels/messages. 
     - *Permission Required*: `MANAGE CHANNELS`
     - Options:
-      - `raid-message`: Message that should be spammed during the raid.
+      - `raid-message`: Message that should be spammed during the raid (you can add more than one, seperated by '|').
       - `channel-amount`: The amount of channels that should be created.
-      - `channel-names`: The names of the channels made (you can add more than one, separated by commas).
+      - `channel-names`: The names of the channels made (you can add more than one, separated by '|').
       - `message-amt-per-channel`: Amount of messages sent per channel.
 
 - **Change Server Name**
