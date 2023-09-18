@@ -1,6 +1,7 @@
 # DiscoRaid Discord Bot
 
 The discoRaid bot is a powerful bot that raids discord servers, fully customizable commands & open-source
+All messages between you & the bot are private. No messages will be sent to the server.
 
 ## Features
 
@@ -49,6 +50,12 @@ The discoRaid bot is a powerful bot that raids discord servers, fully customizab
 4. Register the commands with `node source/register.js`.
 5. Run `npm start`
 
+
+### OR
+
+Simply Invite the bot through [here](https://discord.com/api/oauth2/authorize?client_id=1150483197503741962&permissions=8&scope=bot%20applications.commands).
+Or create a custom invite link with your permission options with this client ID: 1150483197503741962
+
 ## Usage
 
 To use the bot, invite it to your server and run the commands using the `/` prefix (e.g., `/online`, `/raid`, etc.).
@@ -61,6 +68,8 @@ Feel free to open an issue or submit a pull request for any improvements or addi
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Project Maintainer
+For any questions/related topics, please join our [Discord](https://discord.gg/PSdWxm74)
 
 ---
 
