@@ -71,7 +71,7 @@ Feel free to open an issue or submit a pull request for any improvements or addi
 This project is licensed under the [MIT License](LICENSE).
 
 ## Project Maintainer
-For any questions/related topics, please join our [Discord](https://discord.gg/PSdWxm74)
+For any questions/related topics, please join our [Discord](https://discord.gg/BqxtPaSh46)
 
 ---
 

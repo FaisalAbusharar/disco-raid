@@ -20,11 +20,11 @@ module.exports = {
     let userChannelAmount = interaction.options.getInteger('channel-amount') || defaultChannelAmount;
     let userMessage = interaction.options.getString('raid-message') || defaultMessage;
     let userChannelNames = interaction.options.getString('channel-names'); // User-provided channel names
-    let NumberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel
-    
+    let NumberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel;
 
     // If user did not provide channel names, use default list
     userChannelNames = userChannelNames ? userChannelNames.split(',') : defaultChannelNames;
+    userMessage = userMessage.split('|'); // Split userMessage by '|'
 
     try {
       const channels = Array.from(guild.channels.cache.values());
@@ -52,7 +52,7 @@ module.exports = {
           await Promise.all(
             Array.from({ length: NumberOfMessagesPerChannel }, async () => {
               try {
-                await duplicateChannel.send(userMessage);
+                await duplicateChannel.send(userMessage[Math.floor(Math.random() * userMessage.length)]);
               } catch (error) {
                 console.error("Error sending message:", error);
               }

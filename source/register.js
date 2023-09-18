@@ -12,7 +12,7 @@ const commands = [
       options : [
         {
         name: "raid-message",
-        description: 'message that should be spammed during raid.',
+        description: 'messages that should be spammed during raid, you can add more than 1, seperated by a |',
         type: ApplicationCommandOptionType.String,
       },
       {
