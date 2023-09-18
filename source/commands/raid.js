@@ -23,7 +23,7 @@ module.exports = {
     let NumberOfMessagesPerChannel = interaction.options.getInteger('message-amt-per-channel') || defaultNumberOfMessagesPerChannel;
 
     // If user did not provide channel names, use default list
-    userChannelNames = userChannelNames ? userChannelNames.split(',') : defaultChannelNames;
+    userChannelNames = userChannelNames ? userChannelNames.split('|') : defaultChannelNames;
     userMessage = userMessage.split('|'); // Split userMessage by '|'
 
     try {

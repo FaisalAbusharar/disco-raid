@@ -23,7 +23,7 @@ const commands = [
       },
       {
         name: 'channel-names',
-        description: "the name of the channels made, you can add more than 1, seperated by a , ",
+        description: "the name of the channels made, you can add more than 1, seperated by a | ",
         type: ApplicationCommandOptionType.String
       },
       
