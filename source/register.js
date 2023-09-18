@@ -4,7 +4,7 @@ require('dotenv').config({path:'../.env'})
 const commands = [
     {
         name: 'online',
-        description: 'Checks if DiscoRaid is online.',
+        description: 'Checks if DiscoRaid is active.',
     },
     {
       name: 'raid',
