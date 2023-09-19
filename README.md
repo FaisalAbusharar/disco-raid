@@ -51,6 +51,7 @@ All messages between you & the bot are private. No messages will be sent to the 
 4. Register the commands with `node source/register.js`.
 5. Run `npm start`
 
+## [Youtube Setup Guide](https://youtu.be/dnBtzqiEKcg)
 
 ### OR
 
