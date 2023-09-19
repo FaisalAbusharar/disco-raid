@@ -67,8 +67,11 @@ const commands = [
     {
       name: 'ban-all',
       description: 'bans everyone in a server (except admins). PERMISSION_REQUIRED: {BAN MEMBERS}'
+    },
+    {
+      name: 'kick-all',
+      description: 'kicks everyone in a server (except admins). PERMISSION_REQUIRED: {KICK MEMBERS}'
     }
- 
 ];
 
 

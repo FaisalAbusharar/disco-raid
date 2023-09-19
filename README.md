@@ -40,6 +40,10 @@ All messages between you & the bot are private. No messages will be sent to the 
   - `ban-all` command bans everyone in a server (except admins).
     - *Permission Required*: `BAN MEMBERS`
 
+- **Kick All**
+  - `kick-all` command kicks everyone in a server (except admins).
+    - *Permission Required*: `KICK MEMBERS`
+
 ## Getting Started
 
 1. Clone the repository.
